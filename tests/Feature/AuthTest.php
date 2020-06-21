@@ -9,9 +9,11 @@ use Tests\TestCase;
 
 class AuthTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
-     * @test
      * Test Registration
+     * @return void
      */
     public function testRegister()
     {
@@ -29,13 +31,11 @@ class AuthTest extends TestCase
         $response->assertStatus(200);
         // Assert we received a token
         $this->assertArrayHasKey('token', $response->json());
-        // Delete data
-        User::where('email', 'test@gmail.com')->delete();
     }
 
     /** 
-     * @test
      * Test Login
+     * @return void
      * */
     public function testLogin()
     {
@@ -55,6 +55,5 @@ class AuthTest extends TestCase
         // Assert it was successful and a token was received
         $response->assertStatus(200);
         $this->assertArrayHasKey('token', $response->json());
-        User::where('email', 'test@gmail.com')->delete();
     }
 }

@@ -25,9 +25,10 @@ class RecipeController extends Controller
         return $recipe->toJson();
     }
 
+    // create a new recipe
     public function create(Request $request)
     {
-        // Validate
+        // Validate request
         $this->validate($request, [
             'title' => 'required',
             'procedure' => 'required|min:8'
@@ -35,7 +36,7 @@ class RecipeController extends Controller
 
         // Create recipe and attach to user
         $user = Auth::user();
-        $recipe = Recipe::create($request->only(['title', 'procedure']));
+        $recipe = Recipe::create($request->only('title', 'procedure'));
         $user->recipes()->save($recipe);
 
         return $recipe->toJson();

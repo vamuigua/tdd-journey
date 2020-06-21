@@ -34,6 +34,22 @@ class RecipeTest extends TestCase
     }
 
     /**
+     * Create a new recipe and attach recipe to user
+     * @return recipe
+     */
+    public function createRecipe()
+    {
+        // Create a new recipe
+        $recipe = Recipe::create([
+            'title' => 'Jollof Rice',
+            'procedure' => 'Parboil rice, get pepper and mix, and some spice and serve!'
+        ]);
+        $this->user->recipes()->save($recipe);
+
+        return $recipe;
+    }
+
+    /**
      * Test Creating a new Recipe
      * @return void
      */
@@ -66,11 +82,9 @@ class RecipeTest extends TestCase
     {
         // Authenticate and attach recipe to user
         $token = $this->authenticate();
-        $recipe = Recipe::create([
-            'title' => 'Jollof Rice',
-            'procedure' => 'Parboil rice, get pepper and mix, and some spice and serve!'
-        ]);
-        $this->user->recipes()->save($recipe);
+
+        // Create a new recipe
+        $this->createRecipe();
 
         // call the route and assert response
         $response = $this->withHeaders([
@@ -91,11 +105,7 @@ class RecipeTest extends TestCase
     {
         // Authenticate and attach recipe to user
         $token = $this->authenticate();
-        $recipe = Recipe::create([
-            'title' => 'Jollof Rice',
-            'procedure' => 'Parboil rice, get pepper and mix, and some spice and serve!'
-        ]);
-        $this->user->recipes()->save($recipe);
+        $recipe =  $this->createRecipe();
 
         // call route and assert respose
         $response = $this->withHeaders([
@@ -117,11 +127,7 @@ class RecipeTest extends TestCase
     {
         // Authenticate and attach recipe to user
         $token = $this->authenticate();
-        $recipe = Recipe::create([
-            'title' => 'Jollof Rice',
-            'procedure' => 'Parboil rice, get pepper and mix, and some spice and serve!'
-        ]);
-        $this->user->recipes()->save($recipe);
+        $recipe =  $this->createRecipe();
 
         // call route and assert response
         $response = $this->withHeaders([
@@ -141,11 +147,7 @@ class RecipeTest extends TestCase
     {
         // Authenticate and attach recipe to user
         $token = $this->authenticate();
-        $recipe = Recipe::create([
-            'title' => 'Jollof Rice',
-            'procedure' => 'Parboil rice, get pepper and mix, and some spice and serve!'
-        ]);
-        $this->user->recipes()->save($recipe);
+        $recipe = $this->createRecipe();
 
         // call route and assert response
         $response = $this->withHeaders([
