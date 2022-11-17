@@ -15,6 +15,8 @@ jobs:
     - uses: actions/checkout@v2
     - name: Copy .env Laravel Configuration for CI
       run: php -r "file_exists('.env') || copy('.env.ci', '.env');"
+    - name: Composer update
+      run: composer update
     - name: Install Dependencies
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
     - name: Generate key
